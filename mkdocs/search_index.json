@@ -1,0 +1,239 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Lngx is a beautiful, modern, lightweight, and minimalist open-source URL shortening application. It allows you to host your own URL shortener, to brand your URLs, and to gain control over your data. Lngx is especially easy to use, and provides a modern, themeable interface.\n\n\nLngx is built on the original \nPolr\n application created and maintained by \nChaoyi Zha\n, with great thanks for such an elegant approach.\n\n\nWe plan to make many upgrades and changes to the code and design and we'll keep you updated on the \nchangelog page\n.\n\n\nTo view the original list of contributors to \nPolr\n, please see our \nContributors\n page.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/user-guide/installation/", 
+            "text": "Installation\n\n\n\n\nThis installation guide will help you install Lngx 2.0, the latest iteration of Lngx.\n\n\nServer Requirements\n\n\nThe following software is required on your server to run Lngx 2.0.\nIn the case that you cannot fulfill the following requirements (e.g free shared hosting),\nyou may be interested in looking at a \nlegacy 1.x release\n of Lngx (now unsupported).\n\n\n\n\nApache, nginx, IIS, or lighttpd (Apache preferred)\n\n\nPHP \n= 5.5.9\n\n\nMariaDB or MySQL \n= 5.5, SQLite alternatively\n\n\ncomposer\n\n\nPHP requirements:\n\n\nOpenSSL PHP Extension\n\n\nPDO PHP Extension\n\n\nPDO MySQL Driver (php5-mysql on Debian \n Ubuntu, php5x-pdo_mysql on FreeBSD)\n\n\nMbstring PHP Extension\n\n\nTokenizer PHP Extension\n\n\nJSON PHP Extension\n\n\nPHP curl extension\n\n\n\n\n\n\n\n\nDownloading the source code\n\n\nIf you would like to download a stable version of Lngx, you may check out \nthe releases page\n.\n\n\n$ sudo su\n\n# switch to lngx directory (replace with other directory path if applicable)\n\n$ \ncd\n /var/www\n\n# clone lngx\n\n$ git clone https://github.com/19peaches/lngx.git --depth\n=\n1\n\n\n# set correct permissions\n\n$ chmod -R \n755\n Lngx\n\n\n# if you would like to use a specific release, check out\n\n\n# the tag associated with the release. see link above.\n\n$ \n# git checkout \ntag\n\n\n\n# run only if on Ubuntu-based systems\n\n$ chown -R www-data lngx\n\n# run only if on Fedora-based systems\n\n$ chown -R apache lngx\n\n\n# run only if on recent Fedora, or other system, with SELinux enforcing\n\n$ chcon -R -t httpd_sys_rw_content_t lngx/storage lngx/.env\n\n\n\n\nInstalling using \ncomposer\n\n\n# download composer package\n\n$ curl -sS https://getcomposer.org/installer \n|\n php\n\n# update/install dependencies\n\n$ php composer.phar install --no-dev -o\n\n\n\n\nIf composer fails to install the proper dependencies due to your PHP version, delete \ncomposer.lock\n\nand try installing the dependencies again.\n\n\n$ rm composer.lock\n$ php composer.phar install --no-dev -o\n\n\n\n\nRunning Lngx on...\n\n\nApache\n\n\nTo run Lngx on Apache, you will need to create a new Apache configuration file in your operating system's Apache configuration folder (e.g \n/etc/apache2/sites-enabled\n or \n/etc/httpd/sites-enabled\n) or add a virtual host to your \nhttpd-vhosts.conf\n file like so:\n\n\nReplace \nexample.com\n with your server's external address and restart Apache when done.\n\n\nVirtualHost\n \n*:80\n\n    \nServerName\n example.com\n    \nServerAlias\n example.com\n\n    \nDocumentRoot\n \n/var/www/lngx/public\n\n    \nDirectory\n \n/var/www/lngx/public\n\n        \nRequire\n \nall\n granted\n        \nOptions\n Indexes FollowSymLinks\n        \nAllowOverride\n \nAll\n\n        \nOrder\n allow,deny\n        \nAllow\n from \nall\n\n    \n/Directory\n\n\n/VirtualHost\n\n\n\n\n\nIf \nmod_rewrite\n is not already enabled, you will need to enable it like so:\n\n\n# enable mod_rewrite\n\n$ a2enmod rewrite\n\n# restart apache on Ubuntu\n\n$ sudo service apache2 restart\n\n\n# restart apache on Fedora/CentOS\n\n$ sudo service httpd restart\n\n\n\n\nnginx\n\n\nReplace \nexample.com\n with your server's external address. You will need to install \nphp5-fpm\n:\n\n\n$ sudo apt-get install php5-fpm\n\n\n\n\nUseful LEMP installation tutorial by \nDigitalOcean\n\n\n# Upstream to abstract backend connection(s) for php\n\n\nupstream\n \nphp\n \n{\n\n    \nserver\n \nunix:/var/run/php-fpm.sock\n;\n\n    \nserver\n \n127.0.0.1\n:\n9000\n;\n\n\n}\n\n\n\n# HTTP\n\n\n\nserver\n \n{\n\n    \nlisten\n       \n*:80\n;\n\n    \nroot\n         \n/var/www/lngx/public\n;\n\n    \nindex\n        \nindex.php\n \nindex.html\n \nindex.htm\n;\n\n    \nserver_name\n  \nexample.com\n;\n \n# Or whatever you want to use\n\n\n\n# return 301 https://$server_name$request_uri; \n\n\n# Forces HTTPS, which enables privacy for login credentials.\n\n\n# Recommended for public, internet-facing, websites.\n\n\n    \nlocation\n \n/\n \n{\n\n            \ntry_files\n \n$uri\n \n$uri/\n \n/index.php\n$is_args$args\n;\n\n            \n# rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;\n\n    \n}\n\n\n    \nlocation\n \n~\n \n\\.php$\n \n{\n\n            \ntry_files\n \n$uri\n \n=\n404\n;\n\n            \ninclude\n \n/etc/nginx/fastcgi_params\n;\n\n\n            \nfastcgi_pass\n    \nphp\n;\n\n            \nfastcgi_index\n   \nindex.php\n;\n\n            \nfastcgi_param\n   \nSCRIPT_FILENAME\n \n$document_root$fastcgi_script_name\n;\n\n            \nfastcgi_param\n   \nHTTP_HOST\n \n$server_name\n;\n\n    \n}\n\n\n}\n\n\n\n\n# HTTPS\n\n\n\n#server {\n\n\n#   listen *:443 ssl;\n\n\n#   ssl_certificate /etc/ssl/my.crt;\n\n\n#   ssl_certificate_key /etc/ssl/private/my.key;\n\n\n#   root /var/www/lngx/public;\n\n\n#   index index.php index.html index.htm;\n\n\n#   server_name example.com;\n\n\n#\n\n\n#   location / {\n\n\n#           try_files $uri $uri/ /index.php$is_args$args;\n\n\n#           # rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;\n\n\n#   }\n\n\n#\n\n\n#   location ~ \\.php$ {\n\n\n#           try_files $uri =404;\n\n\n#           include /etc/nginx/fastcgi_params;\n\n\n#\n\n\n#           fastcgi_pass    php;\n\n\n#           fastcgi_index   index.php;\n\n\n#           fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;\n\n\n#           fastcgi_param   HTTP_HOST $server_name;\n\n\n#   }\n\n\n#}\n\n\n\n\n\nShared hosting/other\n\n\nTo run Lngx on another HTTP server or on shared hosting, you will need to set the home\ndirectory to \n/PATH_TO_Lngx/public\n, not the root Lngx folder.\n\n\nCreating the database\n\n\nMySQL\n\n\nYou must create a database for Lngx to use before you can complete the setup script.\nTo create a database for Lngx, you can log onto your \nmysql\n shell and run the following command:\n\n\nCREATE\n \nDATABASE\n \nlngxdatabasename\n;\n\n\n\n\n\nRemember this database name, as you will need to provide it to Lngx during setup.\nAdditionally, if you wish to create a new user with access to solely this database, please look into MySQL's \nGRANT\n directive.\n\n\nSQLite\n\n\nYou may also use SQLite in place of MySQL for Lngx. However, SQLite is not recommended for use with Lngx.\n\n\nOption 1: Run the automatic setup script\n\n\nOnce your server is properly set up, you will need to configure Lngx and\nenable it to access the database.\n\n\nCopy the \n.env.setup\n file to \n.env\n in your website's root directory.\n\n\n$ cp .env.setup .env\n\n\nThen, head over to your new Lngx instance, at the path \n/setup/\n to configure\nyour instance with the correct information. (e.g example.com/setup)\n\n\nThis will automatically create the necessary tables and write a new configuration file to disk, \n.env\n. You may make changes  to your configuration later by editing this file.\n\n\nOnce the setup script is completed, Lngx is ready to go. You may go back to your Lngx homepage and log in to perform any other actions.\n\n\nOption 2: Write the configuration file and create the tables manually\n\n\nIf you wish to configure and initialize Lngx manually, you may do so through command line, although it is not recommended.\n\n\nCopy \nresources/views/env.blade.php\n to \n.env\n at the root directory\nand update the values appropriately. Do not leave any curly braces in your new \n.env\n. You may leave\ncertain sections blank or commented-out to use the defaults.\n\n\nYou may then run the following \nartisan\n command to create the necessary tables:\n\n\n$ php artisan migrate --force\n$ php artisan geoip:update\n\n\n\n\nYou will also need to insert a admin user into the \nusers\n table through \nmysql\n or a graphical SQL interface.", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/user-guide/installation/#installation", 
+            "text": "This installation guide will help you install Lngx 2.0, the latest iteration of Lngx.", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/user-guide/installation/#server-requirements", 
+            "text": "The following software is required on your server to run Lngx 2.0.\nIn the case that you cannot fulfill the following requirements (e.g free shared hosting),\nyou may be interested in looking at a  legacy 1.x release  of Lngx (now unsupported).   Apache, nginx, IIS, or lighttpd (Apache preferred)  PHP  = 5.5.9  MariaDB or MySQL  = 5.5, SQLite alternatively  composer  PHP requirements:  OpenSSL PHP Extension  PDO PHP Extension  PDO MySQL Driver (php5-mysql on Debian   Ubuntu, php5x-pdo_mysql on FreeBSD)  Mbstring PHP Extension  Tokenizer PHP Extension  JSON PHP Extension  PHP curl extension", 
+            "title": "Server Requirements"
+        }, 
+        {
+            "location": "/user-guide/installation/#downloading-the-source-code", 
+            "text": "If you would like to download a stable version of Lngx, you may check out  the releases page .  $ sudo su # switch to lngx directory (replace with other directory path if applicable) \n$  cd  /var/www # clone lngx \n$ git clone https://github.com/19peaches/lngx.git --depth = 1  # set correct permissions \n$ chmod -R  755  Lngx # if you would like to use a specific release, check out  # the tag associated with the release. see link above. \n$  # git checkout  tag  # run only if on Ubuntu-based systems \n$ chown -R www-data lngx # run only if on Fedora-based systems \n$ chown -R apache lngx # run only if on recent Fedora, or other system, with SELinux enforcing \n$ chcon -R -t httpd_sys_rw_content_t lngx/storage lngx/.env", 
+            "title": "Downloading the source code"
+        }, 
+        {
+            "location": "/user-guide/installation/#installing-using-composer", 
+            "text": "# download composer package \n$ curl -sS https://getcomposer.org/installer  |  php # update/install dependencies \n$ php composer.phar install --no-dev -o  If composer fails to install the proper dependencies due to your PHP version, delete  composer.lock \nand try installing the dependencies again.  $ rm composer.lock\n$ php composer.phar install --no-dev -o", 
+            "title": "Installing using composer"
+        }, 
+        {
+            "location": "/user-guide/installation/#running-lngx-on", 
+            "text": "", 
+            "title": "Running Lngx on..."
+        }, 
+        {
+            "location": "/user-guide/installation/#apache", 
+            "text": "To run Lngx on Apache, you will need to create a new Apache configuration file in your operating system's Apache configuration folder (e.g  /etc/apache2/sites-enabled  or  /etc/httpd/sites-enabled ) or add a virtual host to your  httpd-vhosts.conf  file like so:  Replace  example.com  with your server's external address and restart Apache when done.  VirtualHost   *:80 \n     ServerName  example.com\n     ServerAlias  example.com\n\n     DocumentRoot   /var/www/lngx/public \n     Directory   /var/www/lngx/public \n         Require   all  granted\n         Options  Indexes FollowSymLinks\n         AllowOverride   All \n         Order  allow,deny\n         Allow  from  all \n     /Directory  /VirtualHost   If  mod_rewrite  is not already enabled, you will need to enable it like so:  # enable mod_rewrite \n$ a2enmod rewrite # restart apache on Ubuntu \n$ sudo service apache2 restart # restart apache on Fedora/CentOS \n$ sudo service httpd restart", 
+            "title": "Apache"
+        }, 
+        {
+            "location": "/user-guide/installation/#nginx", 
+            "text": "Replace  example.com  with your server's external address. You will need to install  php5-fpm :  $ sudo apt-get install php5-fpm  Useful LEMP installation tutorial by  DigitalOcean  # Upstream to abstract backend connection(s) for php  upstream   php   { \n     server   unix:/var/run/php-fpm.sock ; \n     server   127.0.0.1 : 9000 ;  }  # HTTP  server   { \n     listen         *:80 ; \n     root           /var/www/lngx/public ; \n     index          index.php   index.html   index.htm ; \n     server_name    example.com ;   # Or whatever you want to use  # return 301 https://$server_name$request_uri;   # Forces HTTPS, which enables privacy for login credentials.  # Recommended for public, internet-facing, websites. \n\n     location   /   { \n             try_files   $uri   $uri/   /index.php $is_args$args ; \n             # rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1; \n     } \n\n     location   ~   \\.php$   { \n             try_files   $uri   = 404 ; \n             include   /etc/nginx/fastcgi_params ; \n\n             fastcgi_pass      php ; \n             fastcgi_index     index.php ; \n             fastcgi_param     SCRIPT_FILENAME   $document_root$fastcgi_script_name ; \n             fastcgi_param     HTTP_HOST   $server_name ; \n     }  }  # HTTPS  #server {  #   listen *:443 ssl;  #   ssl_certificate /etc/ssl/my.crt;  #   ssl_certificate_key /etc/ssl/private/my.key;  #   root /var/www/lngx/public;  #   index index.php index.html index.htm;  #   server_name example.com;  #  #   location / {  #           try_files $uri $uri/ /index.php$is_args$args;  #           # rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;  #   }  #  #   location ~ \\.php$ {  #           try_files $uri =404;  #           include /etc/nginx/fastcgi_params;  #  #           fastcgi_pass    php;  #           fastcgi_index   index.php;  #           fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;  #           fastcgi_param   HTTP_HOST $server_name;  #   }  #}", 
+            "title": "nginx"
+        }, 
+        {
+            "location": "/user-guide/installation/#shared-hostingother", 
+            "text": "To run Lngx on another HTTP server or on shared hosting, you will need to set the home\ndirectory to  /PATH_TO_Lngx/public , not the root Lngx folder.", 
+            "title": "Shared hosting/other"
+        }, 
+        {
+            "location": "/user-guide/installation/#creating-the-database", 
+            "text": "", 
+            "title": "Creating the database"
+        }, 
+        {
+            "location": "/user-guide/installation/#mysql", 
+            "text": "You must create a database for Lngx to use before you can complete the setup script.\nTo create a database for Lngx, you can log onto your  mysql  shell and run the following command:  CREATE   DATABASE   lngxdatabasename ;   Remember this database name, as you will need to provide it to Lngx during setup.\nAdditionally, if you wish to create a new user with access to solely this database, please look into MySQL's  GRANT  directive.", 
+            "title": "MySQL"
+        }, 
+        {
+            "location": "/user-guide/installation/#sqlite", 
+            "text": "You may also use SQLite in place of MySQL for Lngx. However, SQLite is not recommended for use with Lngx.", 
+            "title": "SQLite"
+        }, 
+        {
+            "location": "/user-guide/installation/#option-1-run-the-automatic-setup-script", 
+            "text": "Once your server is properly set up, you will need to configure Lngx and\nenable it to access the database.  Copy the  .env.setup  file to  .env  in your website's root directory.  $ cp .env.setup .env  Then, head over to your new Lngx instance, at the path  /setup/  to configure\nyour instance with the correct information. (e.g example.com/setup)  This will automatically create the necessary tables and write a new configuration file to disk,  .env . You may make changes  to your configuration later by editing this file.  Once the setup script is completed, Lngx is ready to go. You may go back to your Lngx homepage and log in to perform any other actions.", 
+            "title": "Option 1: Run the automatic setup script"
+        }, 
+        {
+            "location": "/user-guide/installation/#option-2-write-the-configuration-file-and-create-the-tables-manually", 
+            "text": "If you wish to configure and initialize Lngx manually, you may do so through command line, although it is not recommended.  Copy  resources/views/env.blade.php  to  .env  at the root directory\nand update the values appropriately. Do not leave any curly braces in your new  .env . You may leave\ncertain sections blank or commented-out to use the defaults.  You may then run the following  artisan  command to create the necessary tables:  $ php artisan migrate --force\n$ php artisan geoip:update  You will also need to insert a admin user into the  users  table through  mysql  or a graphical SQL interface.", 
+            "title": "Option 2: Write the configuration file and create the tables manually"
+        }, 
+        {
+            "location": "/user-guide/upgrading/", 
+            "text": "Upgrading Lngx\n\n\n\n\nTo upgrade your Lngx instance to the latest \nmaster\n or to a new release, you must back up your database and files before proceeding to avoid data loss.\n\n\nUpgrading from 2.x:\n\n\n\n\nBack up your database and files\n\n\nUpdate your files by using \ngit pull\n or downloading a release\n\n\nRun \ncomposer install --no-dev -o\n to ensure dependencies are up to date\n\n\nMigrate database with \nphp artisan migrate\n to ensure database structure is up to date\n\n\n\n\nUpgrading from 1.x:\n\n\nThere are breaking changes between 2.x and 1.x; it is not yet possible to automatically upgrade to 2.x.", 
+            "title": "Upgrading"
+        }, 
+        {
+            "location": "/user-guide/upgrading/#upgrading-lngx", 
+            "text": "To upgrade your Lngx instance to the latest  master  or to a new release, you must back up your database and files before proceeding to avoid data loss.", 
+            "title": "Upgrading Lngx"
+        }, 
+        {
+            "location": "/user-guide/upgrading/#upgrading-from-2x", 
+            "text": "Back up your database and files  Update your files by using  git pull  or downloading a release  Run  composer install --no-dev -o  to ensure dependencies are up to date  Migrate database with  php artisan migrate  to ensure database structure is up to date", 
+            "title": "Upgrading from 2.x:"
+        }, 
+        {
+            "location": "/user-guide/upgrading/#upgrading-from-1x", 
+            "text": "There are breaking changes between 2.x and 1.x; it is not yet possible to automatically upgrade to 2.x.", 
+            "title": "Upgrading from 1.x:"
+        }, 
+        {
+            "location": "/developer-guide/libraries/", 
+            "text": "Lngx Libraries\n\n\n\n\nTo interact with Lngx's API, you may opt to use a library or write your own integration.\nAs not all languages and frameworks are currently supported by a library, it is encouraged\nthat you take a look at the \nAPI documentation\n to integrate Lngx into your application.\n\n\nOfficial Libraries\n\n\n\n\nthere are no official libraries for Lngx 2.0 yet.\n\n\n\n\nUnofficial libraries\n\n\n\n\nthere are no unofficial libraries for Lngx 2.0 yet.\n\n\nperhaps you'd like to write one? Send a PR to add your library to this page.", 
+            "title": "Libraries"
+        }, 
+        {
+            "location": "/developer-guide/libraries/#lngx-libraries", 
+            "text": "To interact with Lngx's API, you may opt to use a library or write your own integration.\nAs not all languages and frameworks are currently supported by a library, it is encouraged\nthat you take a look at the  API documentation  to integrate Lngx into your application.", 
+            "title": "Lngx Libraries"
+        }, 
+        {
+            "location": "/developer-guide/libraries/#official-libraries", 
+            "text": "there are no official libraries for Lngx 2.0 yet.", 
+            "title": "Official Libraries"
+        }, 
+        {
+            "location": "/developer-guide/libraries/#unofficial-libraries", 
+            "text": "there are no unofficial libraries for Lngx 2.0 yet.  perhaps you'd like to write one? Send a PR to add your library to this page.", 
+            "title": "Unofficial libraries"
+        }, 
+        {
+            "location": "/developer-guide/api/", 
+            "text": "Lngx API Documentation\n\n\n\n\nAPI keys\n\n\nTo authenticate a user to Lngx, you will need to provide an API key along with\neach request to the Lngx API, as a GET or POST parameter. (e.g \n?key=API_KEY_HERE\n)\n\n\nAssigning an API key\n\n\nTo assign an API key, log on from an administrator account, head over to the \"Admin\"\ntab, and scroll to the desired user. From there, you can open the API button dropdown to\nreset, create, or delete the user's API key. You will also be prompted to set a desired API quota. This is defined as requests per minute. You may allow unlimited requests by making the quota negative. Once the user receives an API key, they will be able to see an \"API\"\ntab in their user panel, which provides the information necessary to interact with the API.\n\n\nAlternative method: You can also assign a user an API key by editing their entry in the\n\nusers\n database table, editing the \napi_key\n value to the desired API key, \napi_active\n to the correct value (\n1\n for active, \n0\n for inactive), and \napi_quota\n to the desired API quota (see above).\n\n\nActions\n\n\nActions are passed as a segment in the URL. There are currently\ntwo actions implemented:\n\n\n\n\nshorten\n - shortens a URL\n\n\nlookup\n - looks up the destination of a shortened URL\n\n\n\n\nActions take arguments, which are passed as GET or POST parameters.\nSee \nAPI endpoints\n for more information on the actions.\n\n\nResponse Type\n\n\nThe Lngx API will reply in \nplain_text\n or \njson\n. The response type can be\nset by providing the \nresponse_type\n argument to the request. If not provided,\nthe response type will default to \nplain_text\n.\n\n\nData endpoints will only return JSON-formatted data and will default to \njson\n if no\n\nresponse_type\n is provided.\n\n\nExample \njson\n responses:\n\n\n{\n\n    \naction\n:\n \nshorten\n,\n\n    \nresult\n:\n \nhttps://example.com/5kq\n\n\n}\n\n\n\n\n\n{\n\n    \naction\n:\nlookup\n,\n\n    \nresult\n:\n \n{\n\n        \nlong_url\n:\n \nhttps:\\/\\/google.com\n,\n\n        \ncreated_at\n:\n \n{\n\n            \ndate\n:\n2016-02-12 15:20:34.000000\n,\n\n            \ntimezone_type\n:\n3\n,\n\n            \ntimezone\n:\nUTC\n\n        \n},\n\n        \nclicks\n:\n0\n\n    \n}\n\n\n}\n\n\n\n\n\nExample \nplain_text\n responses:\n\n\nhttps://example.com/5kq\n\n\nhttps://google.com\n\n\nAPI Endpoints\n\n\nAll API calls will commence with the base URL, \n/api/v2/\n.\n\n\n/api/v2/action/shorten\n\n\nArguments:\n\n\n\n\nurl\n: the URL to shorten (e.g \nhttps://google.com\n)\n\n\nis_secret\n (optional): whether the URL should be a secret URL or not. Defaults to \nfalse\n. (e.g \ntrue\n or \nfalse\n)\n\n\ncustom_ending\n (optional): a custom ending for the short URL. If left empty, no custom ending will be assigned.\n\n\n\n\nResponse: A JSON or plain text representation of the shortened URL.\n\n\nExample: \n\n\nGET \nhttp://example.com/api/v2/action/shorten?key=API_KEY_HERE\nurl=https://google.com\ncustom_ending=CUSTOM_ENDING\nis_secret=false\n\n\nResponse:\n\n\n{\n\n    \naction\n:\n \nshorten\n,\n\n    \nresult\n:\n \nhttps://example.com/5kq\n\n\n}\n\n\n\n\n\nRemember that the \nurl\n argument must be URL encoded.\n\n\n/api/v2/action/lookup\n\n\nThe \nlookup\n action takes a single argument: \nurl_ending\n. This is the URL to\nlookup. If it exists, the API will return with the destination of that URL. If\nit does not exist, the API will return with the status code 404 (Not Found).\n\n\nArguments:\n\n\n\n\nurl_ending\n: the link ending for the URL to look up. (e.g \n5ga\n)\n\n\nurl_key\n (optional): optional URL ending key for lookups against secret URLs\n\n\n\n\nRemember that the \nurl\n argument must be URL encoded.\n\n\nExample: \n\n\nGET \nhttp://example.com/api/v2/action/lookup?key=API_KEY_HERE\nurl_ending=2\n\n\nResponse:\n\n\n{\n\n    \naction\n:\n \nlookup\n,\n\n    \nresult\n:\n \nhttps://google.com\n\n\n}\n\n\n\n\n\n/api/v2/data/link\n\n\nArguments:\n\n\n\n\nurl_ending\n: the link ending for the URL to look up. (e.g \n5ga\n)\n\n\nleft_bound\n: left date bound (e.g \n2017-02-28 22:41:43\n)\n\n\nright_bound\n: right date bound (e.g \n2017-03-13 22:41:43\n)\n\n\nstats_type\n: the type of data to fetch\n\n\nday\n: click counts for each day from \nleft_bound\n to \nright_bound\n\n\ncountry\n: click counts per country\n\n\nreferer\n: click counts per referer\n\n\n\n\n\n\n\n\nThe dates must be formatted for the \nstrtotime\n PHP function and must be parsable by Carbon.\nBy default, this API endpoint will only allow users to fetch a maximum of 365 days of data. This setting\ncan be modified in the \n.env\n configuration file.\n\n\nAn API key granted to a regular user can only fetch data for their own links.\nAdmins can fetch data for any link.\n\n\nResponse: A JSON representation of the requested analytics data.\n\n\nExample: \n\n\nGET \nhttp://example.com/api/v2/data/link?stats_type=day\nkey=API_KEY_HERE\nurl_ending=5gk\nresponse_type=json\nleft_bound=2017-02-28%2022:41:43\nright_bound=2017-03-13%2022:21:43\n\n\nResponse:\n\n\n{\n\n    \naction\n:\ndata_link_day\n,\n\n    \nresult\n:\n \n{\n\n        \nurl_ending\n:\n5gk\n,\n\n        \ndata\n:\n \n[\n\n            \n{\nx\n:\n2017-03-10\n,\ny\n:\n42\n},\n\n            \n{\nx\n:\n2017-03-11\n,\ny\n:\n1\n},\n\n            \n{\nx\n:\n2017-03-12\n,\ny\n:\n5\n}\n\n        \n]\n\n    \n}\n\n\n}\n\n\n\n\n\nExample: \n\n\nGET \nhttp://example.com/api/v2/data/link?stats_type=country\nkey=API_KEY_HERE\nurl_ending=5gk\nresponse_type=json\nleft_bound=2017-02-28%2022:41:43\nright_bound=2017-03-13%2022:21:43\n\n\nResponse:\n\n\n{\n\n    \naction\n:\ndata_link_day\n,\n\n    \nresult\n:\n \n{\n\n        \nurl_ending\n:\n5gk\n,\n\n        \ndata\n:\n \n[\n\n            \n{\nlabel\n:\nFR\n,\nclicks\n:\n1\n},\n\n            \n{\nlabel\n:\nUS\n,\nclicks\n:\n6\n},\n\n            \n{\nlabel\n:\nCA\n,\nclicks\n:\n41\n}\n\n        \n]\n\n    \n}\n\n\n}\n\n\n\n\n\nExample: \n\n\nGET \nhttp://example.com/api/v2/data/link?stats_type=country\nkey=API_KEY_HERE\nurl_ending=5gk\nresponse_type=json\nleft_bound=2017-02-28%2022:41:43\nright_bound=2017-03-13%2022:21:43\n\n\nResponse:\n\n\n{\n\n    \naction\n:\ndata_link_day\n,\n\n    \nresult\n:\n \n{\n\n        \nurl_ending\n:\n5gk\n,\n\n        \ndata\n:\n \n[\n\n            \n{\nlabel\n:\nDirect\n,\nclicks\n:\n6\n},\n\n            \n{\nlabel\n:\nreddit.com\n,\nclicks\n:\n12\n},\n\n            \n{\nlabel\n:\nfacebook.com\n,\nclicks\n:\n30\n}\n            \n        \n]\n\n    \n}\n\n\n}\n\n\n\n\n\nHTTP Error Codes\n\n\nThe API will return an error code if your request was malformed or another error occured while processing your request.\n\n\nHTTP 400 Bad Request\n\n\nThis status code is returned in the following circumstances:\n\n\n\n\nBy the \nshorten\n endpoint\n\n\nIn the event that the custom ending provided is already in use, a \n400\n error code will be returned and the message \ncustom ending already in use\n will be returned as an error.\n\n\n\n\n\n\nBy any endpoint\n\n\nYour request will return a \n400\n if it is malformed or the contents of your arguments do not fit the required data type.\n\n\n\n\n\n\n\n\nHTTP 500 Internal Server Error\n\n\n\n\nBy any endpoint\n\n\nThe server has encountered an unhandled error. This is most likely due to a problem with your configuration or your server is unable to handle the request due to a bug.\n\n\n\n\n\n\n\n\nHTTP 401 Unauthorized\n\n\n\n\nBy any endpoint\n\n\nYou are unauthorized to make the transaction. This is most likely due to an API token mismatch, or your API token has not be set to active.\n\n\n\n\n\n\nBy the \nlookup\n endpoint\n\n\nYou have not provided the valid \nurl_key\n for a secret URL lookup.\n\n\n\n\n\n\n\n\nHTTP 404 Not Found\n\n\n\n\n\n\nBy the \nlookup\n endpoint\n\n\n\n\nReturned in the circumstance that the short URL to look up was not found in the database.\n\n\n\n\n\n\n\n\nHTTP 403 Forbidden\n\n\n\n\nBy the \nshorten\n endpoint\n\n\nYour request was understood, but you have exceeded your quota.\n\n\n\n\n\n\n\n\nError Responses\n\n\nExample \njson\n error response:\n\n\n{\n\n    \nstatus_code\n:\n429\n,\n\n    \nerror_code\n:\nQUOTA_EXCEEDED\n,\n\n    \nerror\n:\nQuota exceeded.\n\n\n}\n\n\n\n\n\nExample \nplain_text\n error response:\n\n\n429 Quota exceeded.", 
+            "title": "API Documentation"
+        }, 
+        {
+            "location": "/developer-guide/api/#lngx-api-documentation", 
+            "text": "", 
+            "title": "Lngx API Documentation"
+        }, 
+        {
+            "location": "/developer-guide/api/#api-keys", 
+            "text": "To authenticate a user to Lngx, you will need to provide an API key along with\neach request to the Lngx API, as a GET or POST parameter. (e.g  ?key=API_KEY_HERE )", 
+            "title": "API keys"
+        }, 
+        {
+            "location": "/developer-guide/api/#assigning-an-api-key", 
+            "text": "To assign an API key, log on from an administrator account, head over to the \"Admin\"\ntab, and scroll to the desired user. From there, you can open the API button dropdown to\nreset, create, or delete the user's API key. You will also be prompted to set a desired API quota. This is defined as requests per minute. You may allow unlimited requests by making the quota negative. Once the user receives an API key, they will be able to see an \"API\"\ntab in their user panel, which provides the information necessary to interact with the API.  Alternative method: You can also assign a user an API key by editing their entry in the users  database table, editing the  api_key  value to the desired API key,  api_active  to the correct value ( 1  for active,  0  for inactive), and  api_quota  to the desired API quota (see above).", 
+            "title": "Assigning an API key"
+        }, 
+        {
+            "location": "/developer-guide/api/#actions", 
+            "text": "Actions are passed as a segment in the URL. There are currently\ntwo actions implemented:   shorten  - shortens a URL  lookup  - looks up the destination of a shortened URL   Actions take arguments, which are passed as GET or POST parameters.\nSee  API endpoints  for more information on the actions.", 
+            "title": "Actions"
+        }, 
+        {
+            "location": "/developer-guide/api/#response-type", 
+            "text": "The Lngx API will reply in  plain_text  or  json . The response type can be\nset by providing the  response_type  argument to the request. If not provided,\nthe response type will default to  plain_text .  Data endpoints will only return JSON-formatted data and will default to  json  if no response_type  is provided.  Example  json  responses:  { \n     action :   shorten , \n     result :   https://example.com/5kq  }   { \n     action : lookup , \n     result :   { \n         long_url :   https:\\/\\/google.com , \n         created_at :   { \n             date : 2016-02-12 15:20:34.000000 , \n             timezone_type : 3 , \n             timezone : UTC \n         }, \n         clicks : 0 \n     }  }   Example  plain_text  responses:  https://example.com/5kq  https://google.com", 
+            "title": "Response Type"
+        }, 
+        {
+            "location": "/developer-guide/api/#api-endpoints", 
+            "text": "All API calls will commence with the base URL,  /api/v2/ .", 
+            "title": "API Endpoints"
+        }, 
+        {
+            "location": "/developer-guide/api/#apiv2actionshorten", 
+            "text": "Arguments:   url : the URL to shorten (e.g  https://google.com )  is_secret  (optional): whether the URL should be a secret URL or not. Defaults to  false . (e.g  true  or  false )  custom_ending  (optional): a custom ending for the short URL. If left empty, no custom ending will be assigned.   Response: A JSON or plain text representation of the shortened URL.  Example:   GET  http://example.com/api/v2/action/shorten?key=API_KEY_HERE url=https://google.com custom_ending=CUSTOM_ENDING is_secret=false  Response:  { \n     action :   shorten , \n     result :   https://example.com/5kq  }   Remember that the  url  argument must be URL encoded.", 
+            "title": "/api/v2/action/shorten"
+        }, 
+        {
+            "location": "/developer-guide/api/#apiv2actionlookup", 
+            "text": "The  lookup  action takes a single argument:  url_ending . This is the URL to\nlookup. If it exists, the API will return with the destination of that URL. If\nit does not exist, the API will return with the status code 404 (Not Found).  Arguments:   url_ending : the link ending for the URL to look up. (e.g  5ga )  url_key  (optional): optional URL ending key for lookups against secret URLs   Remember that the  url  argument must be URL encoded.  Example:   GET  http://example.com/api/v2/action/lookup?key=API_KEY_HERE url_ending=2  Response:  { \n     action :   lookup , \n     result :   https://google.com  }", 
+            "title": "/api/v2/action/lookup"
+        }, 
+        {
+            "location": "/developer-guide/api/#apiv2datalink", 
+            "text": "Arguments:   url_ending : the link ending for the URL to look up. (e.g  5ga )  left_bound : left date bound (e.g  2017-02-28 22:41:43 )  right_bound : right date bound (e.g  2017-03-13 22:41:43 )  stats_type : the type of data to fetch  day : click counts for each day from  left_bound  to  right_bound  country : click counts per country  referer : click counts per referer     The dates must be formatted for the  strtotime  PHP function and must be parsable by Carbon.\nBy default, this API endpoint will only allow users to fetch a maximum of 365 days of data. This setting\ncan be modified in the  .env  configuration file.  An API key granted to a regular user can only fetch data for their own links.\nAdmins can fetch data for any link.  Response: A JSON representation of the requested analytics data.  Example:   GET  http://example.com/api/v2/data/link?stats_type=day key=API_KEY_HERE url_ending=5gk response_type=json left_bound=2017-02-28%2022:41:43 right_bound=2017-03-13%2022:21:43  Response:  { \n     action : data_link_day , \n     result :   { \n         url_ending : 5gk , \n         data :   [ \n             { x : 2017-03-10 , y : 42 }, \n             { x : 2017-03-11 , y : 1 }, \n             { x : 2017-03-12 , y : 5 } \n         ] \n     }  }   Example:   GET  http://example.com/api/v2/data/link?stats_type=country key=API_KEY_HERE url_ending=5gk response_type=json left_bound=2017-02-28%2022:41:43 right_bound=2017-03-13%2022:21:43  Response:  { \n     action : data_link_day , \n     result :   { \n         url_ending : 5gk , \n         data :   [ \n             { label : FR , clicks : 1 }, \n             { label : US , clicks : 6 }, \n             { label : CA , clicks : 41 } \n         ] \n     }  }   Example:   GET  http://example.com/api/v2/data/link?stats_type=country key=API_KEY_HERE url_ending=5gk response_type=json left_bound=2017-02-28%2022:41:43 right_bound=2017-03-13%2022:21:43  Response:  { \n     action : data_link_day , \n     result :   { \n         url_ending : 5gk , \n         data :   [ \n             { label : Direct , clicks : 6 }, \n             { label : reddit.com , clicks : 12 }, \n             { label : facebook.com , clicks : 30 }             \n         ] \n     }  }", 
+            "title": "/api/v2/data/link"
+        }, 
+        {
+            "location": "/developer-guide/api/#http-error-codes", 
+            "text": "The API will return an error code if your request was malformed or another error occured while processing your request.", 
+            "title": "HTTP Error Codes"
+        }, 
+        {
+            "location": "/developer-guide/api/#http-400-bad-request", 
+            "text": "This status code is returned in the following circumstances:   By the  shorten  endpoint  In the event that the custom ending provided is already in use, a  400  error code will be returned and the message  custom ending already in use  will be returned as an error.    By any endpoint  Your request will return a  400  if it is malformed or the contents of your arguments do not fit the required data type.", 
+            "title": "HTTP 400 Bad Request"
+        }, 
+        {
+            "location": "/developer-guide/api/#http-500-internal-server-error", 
+            "text": "By any endpoint  The server has encountered an unhandled error. This is most likely due to a problem with your configuration or your server is unable to handle the request due to a bug.", 
+            "title": "HTTP 500 Internal Server Error"
+        }, 
+        {
+            "location": "/developer-guide/api/#http-401-unauthorized", 
+            "text": "By any endpoint  You are unauthorized to make the transaction. This is most likely due to an API token mismatch, or your API token has not be set to active.    By the  lookup  endpoint  You have not provided the valid  url_key  for a secret URL lookup.", 
+            "title": "HTTP 401 Unauthorized"
+        }, 
+        {
+            "location": "/developer-guide/api/#http-404-not-found", 
+            "text": "By the  lookup  endpoint   Returned in the circumstance that the short URL to look up was not found in the database.", 
+            "title": "HTTP 404 Not Found"
+        }, 
+        {
+            "location": "/developer-guide/api/#http-403-forbidden", 
+            "text": "By the  shorten  endpoint  Your request was understood, but you have exceeded your quota.", 
+            "title": "HTTP 403 Forbidden"
+        }, 
+        {
+            "location": "/developer-guide/api/#error-responses", 
+            "text": "Example  json  error response:  { \n     status_code : 429 , \n     error_code : QUOTA_EXCEEDED , \n     error : Quota exceeded.  }   Example  plain_text  error response:  429 Quota exceeded.", 
+            "title": "Error Responses"
+        }, 
+        {
+            "location": "/developer-guide/api_errors/", 
+            "text": "API Error Text Codes\n\n\nTo diagnose an unexpected or unhandled error, turn on the \nAPP_DEBUG\n flag by setting\nit to \ntrue\n in \n.env\n\n\nSERVER_ERROR\n: A generic, unhandled error has occured.\n\n\nJSON_ONLY\n: Only JSON-encoded data is available for this endpoint.\n\n\nMISSING_PARAMETERS\n: Invalid or missing parameters.\n\n\nNOT_FOUND\n: Object not found.\n\n\nACCESS_DENIED\n: User is not authorized to access the object.\n\n\nINVALID_ANALYTICS_TYPE\n: Invalid analytics type requested.\n\n\nCREATION_ERROR\n: An error occurred while creating the object.\n\n\nAUTH_ERROR\n: An error occured while attempting to authenticate the user to the API.\n\n\nQUOTA_EXCEEDED\n: User's API usage has exceeded alloted quota.\n\n\nANALYTICS_ERROR\n: Invalid bounds or unexpected error while fetching analytics data.", 
+            "title": "API Errors"
+        }, 
+        {
+            "location": "/developer-guide/api_errors/#api-error-text-codes", 
+            "text": "To diagnose an unexpected or unhandled error, turn on the  APP_DEBUG  flag by setting\nit to  true  in  .env  SERVER_ERROR : A generic, unhandled error has occured.  JSON_ONLY : Only JSON-encoded data is available for this endpoint.  MISSING_PARAMETERS : Invalid or missing parameters.  NOT_FOUND : Object not found.  ACCESS_DENIED : User is not authorized to access the object.  INVALID_ANALYTICS_TYPE : Invalid analytics type requested.  CREATION_ERROR : An error occurred while creating the object.  AUTH_ERROR : An error occured while attempting to authenticate the user to the API.  QUOTA_EXCEEDED : User's API usage has exceeded alloted quota.  ANALYTICS_ERROR : Invalid bounds or unexpected error while fetching analytics data.", 
+            "title": "API Error Text Codes"
+        }, 
+        {
+            "location": "/about/license/", 
+            "text": "License\n\n\n\n\nLngx is licensed under the GPLv2+\n\n\nCopyright (C) 2017 19Peaches, LLC.\n\nThis program is free software; you can redistribute it and/or\nmodify it under the terms of the GNU General Public License\nas published by the Free Software Foundation; either version 2\nof the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program; if not, write to the Free Software\nFoundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.\n\n\n\n\nFull license text: \nhttps://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html", 
+            "title": "License"
+        }, 
+        {
+            "location": "/about/license/#license", 
+            "text": "Lngx is licensed under the GPLv2+  Copyright (C) 2017 19Peaches, LLC.\n\nThis program is free software; you can redistribute it and/or\nmodify it under the terms of the GNU General Public License\nas published by the Free Software Foundation; either version 2\nof the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program; if not, write to the Free Software\nFoundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.  Full license text:  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html", 
+            "title": "License"
+        }, 
+        {
+            "location": "/about/changelog/", 
+            "text": "This page will be updated as changes to Lngx are made.", 
+            "title": "Change Log"
+        }, 
+        {
+            "location": "/about/contributors/", 
+            "text": "Contributors\n\n\n\n\nLngx is based on \nPolr\n, created and maintained by \nChaoyi Zha\n, but many other contributors have submitted code.\n\n\nOriginal \nPolr\n contributors:\n\n\nContributors\n\n\nThanks to all who helped build and test.", 
+            "title": "Contributors"
+        }, 
+        {
+            "location": "/about/contributors/#contributors", 
+            "text": "Lngx is based on  Polr , created and maintained by  Chaoyi Zha , but many other contributors have submitted code.  Original  Polr  contributors:  Contributors  Thanks to all who helped build and test.", 
+            "title": "Contributors"
+        }
+    ]
+}

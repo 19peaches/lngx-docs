@@ -1,0 +1,981 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A url shortener based on Polr.">
+      
+      
+        <link rel="canonical" href="https://docs.lngx.org/user-guide/installation/">
+      
+      
+        <meta name="author" content="Vince Kronlein">
+      
+      
+        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
+    
+    
+      
+        <title>Installation - Lngx</title>
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr-e826f8942a.js"></script>
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application-9011e2d3f8.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-23f75ab9c7.palette.css">
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+  
+  
+    <body data-md-color-primary="light-blue" data-md-color-accent="orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://docs.lngx.org" title="Lngx" class="md-header-nav__button md-logo">
+          
+            
+              <img src="../../img/icon.png" width="24" height="24">
+            
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+                <span class="md-header-nav__parent">
+                  User Guide
+                </span>
+              
+            
+            Installation
+          
+        </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
+          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/19peaches/lngx" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      19peaches/lngx
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" title="User Guide" class="md-tabs__link md-tabs__link--active">
+          User Guide
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../developer-guide/libraries/" title="Developer Guide" class="md-tabs__link">
+          Developer Guide
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../about/license/" title="About" class="md-tabs__link">
+          About
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <div class="md-nav__button md-logo">
+      
+        
+          <img src="../../img/icon.png">
+        
+      
+    </div>
+    Lngx
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/19peaches/lngx" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      19peaches/lngx
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      User Guide
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        User Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Installation
+      </label>
+    
+    <a href="./" title="Installation" class="md-nav__link md-nav__link--active">
+      Installation
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#server-requirements" title="Server Requirements" class="md-nav__link">
+    Server Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloading-the-source-code" title="Downloading the source code" class="md-nav__link">
+    Downloading the source code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-using-composer" title="Installing using composer" class="md-nav__link">
+    Installing using composer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-lngx-on" title="Running Lngx on..." class="md-nav__link">
+    Running Lngx on...
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache" title="Apache" class="md-nav__link">
+    Apache
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx" title="nginx" class="md-nav__link">
+    nginx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shared-hostingother" title="Shared hosting/other" class="md-nav__link">
+    Shared hosting/other
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-database" title="Creating the database" class="md-nav__link">
+    Creating the database
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mysql" title="MySQL" class="md-nav__link">
+    MySQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqlite" title="SQLite" class="md-nav__link">
+    SQLite
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-1-run-the-automatic-setup-script" title="Option 1: Run the automatic setup script" class="md-nav__link">
+    Option 1: Run the automatic setup script
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-write-the-configuration-file-and-create-the-tables-manually" title="Option 2: Write the configuration file and create the tables manually" class="md-nav__link">
+    Option 2: Write the configuration file and create the tables manually
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../upgrading/" title="Upgrading" class="md-nav__link">
+      Upgrading
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Developer Guide
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Developer Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer-guide/libraries/" title="Libraries" class="md-nav__link">
+      Libraries
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer-guide/api/" title="API Documentation" class="md-nav__link">
+      API Documentation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer-guide/api_errors/" title="API Errors" class="md-nav__link">
+      API Errors
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      About
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/changelog/" title="Change Log" class="md-nav__link">
+      Change Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/contributors/" title="Contributors" class="md-nav__link">
+      Contributors
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#server-requirements" title="Server Requirements" class="md-nav__link">
+    Server Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloading-the-source-code" title="Downloading the source code" class="md-nav__link">
+    Downloading the source code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-using-composer" title="Installing using composer" class="md-nav__link">
+    Installing using composer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-lngx-on" title="Running Lngx on..." class="md-nav__link">
+    Running Lngx on...
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache" title="Apache" class="md-nav__link">
+    Apache
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx" title="nginx" class="md-nav__link">
+    nginx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shared-hostingother" title="Shared hosting/other" class="md-nav__link">
+    Shared hosting/other
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-database" title="Creating the database" class="md-nav__link">
+    Creating the database
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mysql" title="MySQL" class="md-nav__link">
+    MySQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqlite" title="SQLite" class="md-nav__link">
+    SQLite
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-1-run-the-automatic-setup-script" title="Option 1: Run the automatic setup script" class="md-nav__link">
+    Option 1: Run the automatic setup script
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-write-the-configuration-file-and-create-the-tables-manually" title="Option 2: Write the configuration file and create the tables manually" class="md-nav__link">
+    Option 2: Write the configuration file and create the tables manually
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
+<hr />
+<p>This installation guide will help you install Lngx 2.0, the latest iteration of Lngx.</p>
+<h2 id="server-requirements">Server Requirements<a class="headerlink" href="#server-requirements" title="Permanent link">&para;</a></h2>
+<p>The following software is required on your server to run Lngx 2.0.
+In the case that you cannot fulfill the following requirements (e.g free shared hosting),
+you may be interested in looking at a <a href="https://github.com/19peaches/lngx/releases">legacy 1.x release</a> of Lngx (now unsupported).</p>
+<ul>
+<li>Apache, nginx, IIS, or lighttpd (Apache preferred)</li>
+<li>PHP &gt;= 5.5.9</li>
+<li>MariaDB or MySQL &gt;= 5.5, SQLite alternatively</li>
+<li>composer</li>
+<li>PHP requirements:<ul>
+<li>OpenSSL PHP Extension</li>
+<li>PDO PHP Extension</li>
+<li>PDO MySQL Driver (php5-mysql on Debian &amp; Ubuntu, php5x-pdo_mysql on FreeBSD)</li>
+<li>Mbstring PHP Extension</li>
+<li>Tokenizer PHP Extension</li>
+<li>JSON PHP Extension</li>
+<li>PHP curl extension</li>
+</ul>
+</li>
+</ul>
+<h2 id="downloading-the-source-code">Downloading the source code<a class="headerlink" href="#downloading-the-source-code" title="Permanent link">&para;</a></h2>
+<p>If you would like to download a stable version of Lngx, you may check out <a href="https://github.com/19peaches/lngx/releases">the releases page</a>.</p>
+<div class="codehilite"><pre><span></span>$ sudo su
+<span class="c1"># switch to lngx directory (replace with other directory path if applicable)</span>
+$ <span class="nb">cd</span> /var/www
+<span class="c1"># clone lngx</span>
+$ git clone https://github.com/19peaches/lngx.git --depth<span class="o">=</span><span class="m">1</span>
+<span class="c1"># set correct permissions</span>
+$ chmod -R <span class="m">755</span> Lngx
+
+<span class="c1"># if you would like to use a specific release, check out</span>
+<span class="c1"># the tag associated with the release. see link above.</span>
+$ <span class="c1"># git checkout &lt;tag&gt;</span>
+
+<span class="c1"># run only if on Ubuntu-based systems</span>
+$ chown -R www-data lngx
+<span class="c1"># run only if on Fedora-based systems</span>
+$ chown -R apache lngx
+
+<span class="c1"># run only if on recent Fedora, or other system, with SELinux enforcing</span>
+$ chcon -R -t httpd_sys_rw_content_t lngx/storage lngx/.env
+</pre></div>
+
+<h2 id="installing-using-composer">Installing using <code>composer</code><a class="headerlink" href="#installing-using-composer" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="c1"># download composer package</span>
+$ curl -sS https://getcomposer.org/installer <span class="p">|</span> php
+<span class="c1"># update/install dependencies</span>
+$ php composer.phar install --no-dev -o
+</pre></div>
+
+<p>If composer fails to install the proper dependencies due to your PHP version, delete <code>composer.lock</code>
+and try installing the dependencies again.</p>
+<div class="codehilite"><pre><span></span>$ rm composer.lock
+$ php composer.phar install --no-dev -o
+</pre></div>
+
+<h2 id="running-lngx-on">Running Lngx on...<a class="headerlink" href="#running-lngx-on" title="Permanent link">&para;</a></h2>
+<h3 id="apache">Apache<a class="headerlink" href="#apache" title="Permanent link">&para;</a></h3>
+<p>To run Lngx on Apache, you will need to create a new Apache configuration file in your operating system's Apache configuration folder (e.g <code>/etc/apache2/sites-enabled</code> or <code>/etc/httpd/sites-enabled</code>) or add a virtual host to your <code>httpd-vhosts.conf</code> file like so:</p>
+<p>Replace <code>example.com</code> with your server's external address and restart Apache when done.</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+    <span class="nb">ServerName</span> example.com
+    <span class="nb">ServerAlias</span> example.com
+
+    <span class="nb">DocumentRoot</span> <span class="s2">&quot;/var/www/lngx/public&quot;</span>
+    <span class="nt">&lt;Directory</span> <span class="s">&quot;/var/www/lngx/public&quot;</span><span class="nt">&gt;</span>
+        <span class="nb">Require</span> <span class="k">all</span> granted
+        <span class="nb">Options</span> Indexes FollowSymLinks
+        <span class="nb">AllowOverride</span> <span class="k">All</span>
+        <span class="nb">Order</span> allow,deny
+        <span class="nb">Allow</span> from <span class="k">all</span>
+    <span class="nt">&lt;/Directory&gt;</span>
+<span class="nt">&lt;/VirtualHost&gt;</span>
+</pre></div>
+
+<p>If <code>mod_rewrite</code> is not already enabled, you will need to enable it like so:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># enable mod_rewrite</span>
+$ a2enmod rewrite
+<span class="c1"># restart apache on Ubuntu</span>
+$ sudo service apache2 restart
+
+<span class="c1"># restart apache on Fedora/CentOS</span>
+$ sudo service httpd restart
+</pre></div>
+
+<h3 id="nginx">nginx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3>
+<p>Replace <code>example.com</code> with your server's external address. You will need to install <code>php5-fpm</code>:</p>
+<div class="codehilite"><pre><span></span>$ sudo apt-get install php5-fpm
+</pre></div>
+
+<p>Useful LEMP installation tutorial by <a href="https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04">DigitalOcean</a></p>
+<div class="codehilite"><pre><span></span><span class="c1"># Upstream to abstract backend connection(s) for php</span>
+<span class="k">upstream</span> <span class="s">php</span> <span class="p">{</span>
+    <span class="kn">server</span> <span class="s">unix:/var/run/php-fpm.sock</span><span class="p">;</span>
+    <span class="kn">server</span> <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">9000</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># HTTP</span>
+
+<span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span>       <span class="s">*:80</span><span class="p">;</span>
+    <span class="kn">root</span>         <span class="s">/var/www/lngx/public</span><span class="p">;</span>
+    <span class="kn">index</span>        <span class="s">index.php</span> <span class="s">index.html</span> <span class="s">index.htm</span><span class="p">;</span>
+    <span class="kn">server_name</span>  <span class="s">example.com</span><span class="p">;</span> <span class="c1"># Or whatever you want to use</span>
+
+<span class="c1"># return 301 https://$server_name$request_uri; </span>
+<span class="c1"># Forces HTTPS, which enables privacy for login credentials.</span>
+<span class="c1"># Recommended for public, internet-facing, websites.</span>
+
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+            <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri/</span> <span class="s">/index.php</span><span class="nv">$is_args$args</span><span class="p">;</span>
+            <span class="c1"># rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;</span>
+    <span class="p">}</span>
+
+    <span class="kn">location</span> <span class="p">~</span> <span class="sr">\.php$</span> <span class="p">{</span>
+            <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="p">=</span><span class="mi">404</span><span class="p">;</span>
+            <span class="kn">include</span> <span class="s">/etc/nginx/fastcgi_params</span><span class="p">;</span>
+
+            <span class="kn">fastcgi_pass</span>    <span class="s">php</span><span class="p">;</span>
+            <span class="kn">fastcgi_index</span>   <span class="s">index.php</span><span class="p">;</span>
+            <span class="kn">fastcgi_param</span>   <span class="s">SCRIPT_FILENAME</span> <span class="nv">$document_root$fastcgi_script_name</span><span class="p">;</span>
+            <span class="kn">fastcgi_param</span>   <span class="s">HTTP_HOST</span> <span class="nv">$server_name</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="c1"># HTTPS</span>
+
+<span class="c1">#server {</span>
+<span class="c1">#   listen *:443 ssl;</span>
+<span class="c1">#   ssl_certificate /etc/ssl/my.crt;</span>
+<span class="c1">#   ssl_certificate_key /etc/ssl/private/my.key;</span>
+<span class="c1">#   root /var/www/lngx/public;</span>
+<span class="c1">#   index index.php index.html index.htm;</span>
+<span class="c1">#   server_name example.com;</span>
+<span class="c1">#</span>
+<span class="c1">#   location / {</span>
+<span class="c1">#           try_files $uri $uri/ /index.php$is_args$args;</span>
+<span class="c1">#           # rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;</span>
+<span class="c1">#   }</span>
+<span class="c1">#</span>
+<span class="c1">#   location ~ \.php$ {</span>
+<span class="c1">#           try_files $uri =404;</span>
+<span class="c1">#           include /etc/nginx/fastcgi_params;</span>
+<span class="c1">#</span>
+<span class="c1">#           fastcgi_pass    php;</span>
+<span class="c1">#           fastcgi_index   index.php;</span>
+<span class="c1">#           fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;</span>
+<span class="c1">#           fastcgi_param   HTTP_HOST $server_name;</span>
+<span class="c1">#   }</span>
+<span class="c1">#}</span>
+</pre></div>
+
+<h3 id="shared-hostingother">Shared hosting/other<a class="headerlink" href="#shared-hostingother" title="Permanent link">&para;</a></h3>
+<p>To run Lngx on another HTTP server or on shared hosting, you will need to set the home
+directory to <code>/PATH_TO_Lngx/public</code>, not the root Lngx folder.</p>
+<h2 id="creating-the-database">Creating the database<a class="headerlink" href="#creating-the-database" title="Permanent link">&para;</a></h2>
+<h3 id="mysql">MySQL<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h3>
+<p>You must create a database for Lngx to use before you can complete the setup script.
+To create a database for Lngx, you can log onto your <code>mysql</code> shell and run the following command:</p>
+<div class="codehilite"><pre><span></span><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">lngxdatabasename</span><span class="p">;</span>
+</pre></div>
+
+<p>Remember this database name, as you will need to provide it to Lngx during setup.
+Additionally, if you wish to create a new user with access to solely this database, please look into MySQL's <a href="https://dev.mysql.com/doc/refman/5.7/en/grant.html">GRANT</a> directive.</p>
+<h3 id="sqlite">SQLite<a class="headerlink" href="#sqlite" title="Permanent link">&para;</a></h3>
+<p>You may also use SQLite in place of MySQL for Lngx. However, SQLite is not recommended for use with Lngx.</p>
+<h2 id="option-1-run-the-automatic-setup-script">Option 1: Run the automatic setup script<a class="headerlink" href="#option-1-run-the-automatic-setup-script" title="Permanent link">&para;</a></h2>
+<p>Once your server is properly set up, you will need to configure Lngx and
+enable it to access the database.</p>
+<p>Copy the <code>.env.setup</code> file to <code>.env</code> in your website's root directory.</p>
+<p><code>$ cp .env.setup .env</code></p>
+<p>Then, head over to your new Lngx instance, at the path <code>/setup/</code> to configure
+your instance with the correct information. (e.g example.com/setup)</p>
+<p>This will automatically create the necessary tables and write a new configuration file to disk, <code>.env</code>. You may make changes  to your configuration later by editing this file.</p>
+<p>Once the setup script is completed, Lngx is ready to go. You may go back to your Lngx homepage and log in to perform any other actions.</p>
+<h2 id="option-2-write-the-configuration-file-and-create-the-tables-manually">Option 2: Write the configuration file and create the tables manually<a class="headerlink" href="#option-2-write-the-configuration-file-and-create-the-tables-manually" title="Permanent link">&para;</a></h2>
+<p>If you wish to configure and initialize Lngx manually, you may do so through command line, although it is not recommended.</p>
+<p>Copy <code>resources/views/env.blade.php</code> to <code>.env</code> at the root directory
+and update the values appropriately. Do not leave any curly braces in your new <code>.env</code>. You may leave
+certain sections blank or commented-out to use the defaults.</p>
+<p>You may then run the following <code>artisan</code> command to create the necessary tables:</p>
+<div class="codehilite"><pre><span></span>$ php artisan migrate --force
+$ php artisan geoip:update
+</pre></div>
+
+<p>You will also need to insert a admin user into the <code>users</code> table through <code>mysql</code> or a graphical SQL interface.</p>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../.." title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../upgrading/" title="Upgrading" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Upgrading
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2017 19Peaches, LLC.
+          </div>
+        
+        powered by
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        and
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/19peaches" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/VinceKronlein" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application-f3ab9e5ff8.js"></script>
+      
+      
+      <script>app.initialize({url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>
