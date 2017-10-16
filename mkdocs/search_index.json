@@ -2,7 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Lngx is a beautiful, modern, lightweight, and minimalist open-source URL shortening application. It allows you to host your own URL shortener, to brand your URLs, and to gain control over your data. Lngx is especially easy to use, and provides a modern, themeable interface.\n\n\nLngx is built on the original \nPolr\n application created and maintained by \nChaoyi Zha\n, with great thanks for such an elegant approach.\n\n\nWe plan to make many upgrades and changes to the code and design and we'll keep you updated on the \nchangelog page\n.\n\n\nTo view the original list of contributors to \nPolr\n, please see our \nContributors\n page.", 
+            "text": "Home\n\n\n\n\n\n\n\n\n\n\nLngx is a beautiful, modern, lightweight, and minimalist open-source URL shortening application. It allows you to host your own URL shortener, to brand your URLs, and to gain control over your data. Lngx is especially easy to use, and provides a modern, themeable interface.\n\n\nLngx is built on the original \nPolr\n application created and maintained by \nChaoyi Zha\n, with great thanks for such an elegant approach.\n\n\nWe plan to make many upgrades and changes to the code and design and we'll keep you updated on the \nchangelog page\n.\n\n\nTo view the original list of contributors to \nPolr\n, please see our \nContributors\n page.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#home", 
+            "text": "Lngx is a beautiful, modern, lightweight, and minimalist open-source URL shortening application. It allows you to host your own URL shortener, to brand your URLs, and to gain control over your data. Lngx is especially easy to use, and provides a modern, themeable interface.  Lngx is built on the original  Polr  application created and maintained by  Chaoyi Zha , with great thanks for such an elegant approach.  We plan to make many upgrades and changes to the code and design and we'll keep you updated on the  changelog page .  To view the original list of contributors to  Polr , please see our  Contributors  page.", 
             "title": "Home"
         }, 
         {
@@ -77,7 +82,7 @@
         }, 
         {
             "location": "/user-guide/upgrading/", 
-            "text": "Upgrading Lngx\n\n\n\n\nTo upgrade your Lngx instance to the latest \nmaster\n or to a new release, you must back up your database and files before proceeding to avoid data loss.\n\n\nUpgrading from 2.x:\n\n\n\n\nBack up your database and files\n\n\nUpdate your files by using \ngit pull\n or downloading a release\n\n\nRun \ncomposer install --no-dev -o\n to ensure dependencies are up to date\n\n\nMigrate database with \nphp artisan migrate\n to ensure database structure is up to date\n\n\n\n\nUpgrading from 1.x:\n\n\nThere are breaking changes between 2.x and 1.x; it is not yet possible to automatically upgrade to 2.x.", 
+            "text": "Upgrading Lngx\n\n\n\n\nTo upgrade your Lngx instance to the latest \nmaster\n or to a new release, you must back up your database and files before proceeding to avoid data loss.\n\n\nUpgrading from 1.x:\n\n\n\n\nBack up your database and files\n\n\nUpdate your files by using \ngit pull\n or downloading a release\n\n\nRun \ncomposer install --no-dev -o\n to ensure dependencies are up to date\n\n\nMigrate database with \nphp artisan migrate\n to ensure database structure is up to date", 
             "title": "Upgrading"
         }, 
         {
@@ -86,13 +91,8 @@
             "title": "Upgrading Lngx"
         }, 
         {
-            "location": "/user-guide/upgrading/#upgrading-from-2x", 
-            "text": "Back up your database and files  Update your files by using  git pull  or downloading a release  Run  composer install --no-dev -o  to ensure dependencies are up to date  Migrate database with  php artisan migrate  to ensure database structure is up to date", 
-            "title": "Upgrading from 2.x:"
-        }, 
-        {
             "location": "/user-guide/upgrading/#upgrading-from-1x", 
-            "text": "There are breaking changes between 2.x and 1.x; it is not yet possible to automatically upgrade to 2.x.", 
+            "text": "Back up your database and files  Update your files by using  git pull  or downloading a release  Run  composer install --no-dev -o  to ensure dependencies are up to date  Migrate database with  php artisan migrate  to ensure database structure is up to date", 
             "title": "Upgrading from 1.x:"
         }, 
         {
@@ -202,7 +202,7 @@
         }, 
         {
             "location": "/developer-guide/api_errors/", 
-            "text": "API Error Text Codes\n\n\nTo diagnose an unexpected or unhandled error, turn on the \nAPP_DEBUG\n flag by setting\nit to \ntrue\n in \n.env\n\n\nSERVER_ERROR\n: A generic, unhandled error has occured.\n\n\nJSON_ONLY\n: Only JSON-encoded data is available for this endpoint.\n\n\nMISSING_PARAMETERS\n: Invalid or missing parameters.\n\n\nNOT_FOUND\n: Object not found.\n\n\nACCESS_DENIED\n: User is not authorized to access the object.\n\n\nINVALID_ANALYTICS_TYPE\n: Invalid analytics type requested.\n\n\nCREATION_ERROR\n: An error occurred while creating the object.\n\n\nAUTH_ERROR\n: An error occured while attempting to authenticate the user to the API.\n\n\nQUOTA_EXCEEDED\n: User's API usage has exceeded alloted quota.\n\n\nANALYTICS_ERROR\n: Invalid bounds or unexpected error while fetching analytics data.", 
+            "text": "API Error Text Codes\n\n\n\n\nTo diagnose an unexpected or unhandled error, turn on the \nAPP_DEBUG\n flag by setting\nit to \ntrue\n in \n.env\n\n\nSERVER_ERROR\n: A generic, unhandled error has occured.\n\n\nJSON_ONLY\n: Only JSON-encoded data is available for this endpoint.\n\n\nMISSING_PARAMETERS\n: Invalid or missing parameters.\n\n\nNOT_FOUND\n: Object not found.\n\n\nACCESS_DENIED\n: User is not authorized to access the object.\n\n\nINVALID_ANALYTICS_TYPE\n: Invalid analytics type requested.\n\n\nCREATION_ERROR\n: An error occurred while creating the object.\n\n\nAUTH_ERROR\n: An error occured while attempting to authenticate the user to the API.\n\n\nQUOTA_EXCEEDED\n: User's API usage has exceeded alloted quota.\n\n\nANALYTICS_ERROR\n: Invalid bounds or unexpected error while fetching analytics data.", 
             "title": "API Errors"
         }, 
         {
@@ -222,6 +222,11 @@
         }, 
         {
             "location": "/about/changelog/", 
+            "text": "Change Log\n\n\n\n\nThis page will be updated as changes to Lngx are made.", 
+            "title": "Change Log"
+        }, 
+        {
+            "location": "/about/changelog/#change-log", 
             "text": "This page will be updated as changes to Lngx are made.", 
             "title": "Change Log"
         }, 
